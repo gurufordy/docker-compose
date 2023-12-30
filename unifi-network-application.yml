@@ -6,6 +6,7 @@ services:
       unifi-network-application
       #profiles:
       #- donotstart
+    network: [web]
     depends_on:
       - mongodb
     environment:
@@ -34,8 +35,8 @@ services:
     restart: unless-stopped
     labels:
       - "traefik.enable=true"
-      # - "traefik.docker.network=web"
-      # - "traefik.http.routers.router-unifi-network-application.entrypoints=web"
+      - "traefik.docker.network=web"
+      - "traefik.http.routers.router-unifi-network-application.entrypoints=web"
       - "traefik.http.routers.router-unifi-network-application.rule=Host(`una.matthewford.dev`)"
       - "traefik.http.services.unifi-network-application.loadbalancer.server.port=8443"
 
@@ -72,3 +73,7 @@ services:
 volumes:
   unifi-mongo-db:
   unifi-mongo-web:
+
+networks:
+  web:
+    external: true
