@@ -20,6 +20,8 @@ services:
       - "--certificatesresolvers.cloudflareresolver.acme.dnschallenge.provider=cloudflare"
       - "--certificatesresolvers.cloudflareresolver.acme.email=$CF_API_EMAIL"
       - "--certificatesresolvers.cloudflareresolver.acme.storage=/letsencrypt/acme.json"
+    extra_hosts:
+      - host.docker.internal: 172.28.0.2 # Needed to avoid Bad Gateway.
     environment:
       - "CF_API_EMAIL=$CF_API_EMAIL"
       - "CF_API_KEY=$CF_API_KEY"
@@ -27,7 +29,8 @@ services:
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
       - "/etc/traefik/cloudflare-acme:/letsencrypt"
-      
+
 networks:
   web:
     external: true
+    ipv4_address: 172.28.0.2
