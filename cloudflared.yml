@@ -1,0 +1,15 @@
+version: "3"
+
+services:
+  cloudflared:
+    image: cloudflare/cloudflared:latest
+    container_name: cloudflared
+    restart: "unless-stopped"
+    environment:
+      - "TUNNEL_TOKEN=$TUNNEL_TOKEN"
+    networks: [web]
+    command: tunnel --no-autoupdate run
+
+networks:
+  web:
+    external: true
