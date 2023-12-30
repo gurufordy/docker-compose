@@ -34,8 +34,8 @@ services:
     restart: unless-stopped
     labels:
       - "traefik.enable=true"
-      - "traefik.docker.network=unifi-network-application_default"
-      - "traefik.http.routers.router-unifi-network-application.entrypoints=unifi-network-application_default"
+      # - "traefik.docker.network=web"
+      # - "traefik.http.routers.router-unifi-network-application.entrypoints=web"
       - "traefik.http.routers.router-unifi-network-application.rule=Host(`una.matthewford.dev`)"
       - "traefik.http.services.unifi-network-application.loadbalancer.server.port=8443"
 
