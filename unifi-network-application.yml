@@ -6,7 +6,7 @@ services:
       unifi-network-application
       #profiles:
       #- donotstart
-    network:
+    networks:
       - web
     depends_on:
       - mongodb
