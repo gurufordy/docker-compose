@@ -11,7 +11,7 @@ services:
     environment:
       - PUID=1000
       - PGID=1000
-      - TZ=Etc/Vienna
+      - TZ=Etc/UTC
       - MONGO_USER=unifi
       - MONGO_PASS=sharingiscaring223
       - MONGO_HOST=mongodb
@@ -66,6 +66,7 @@ services:
 volumes:
   unifi-mongo-db:
   unifi-mongo-web:
+
 # cat init-mongo.js
-#db.getSiblingDB("unifi").createUser({user: "unifi", pwd: "sharingiscaring223", roles: [{role: "readWrite", db: "unifi"}]});
-#db.getSiblingDB("unifi_stat").createUser({user: "unifi", pwd: "sharingiscaring223", roles: [{role: "readWrite", db: "unifi_stat"}]});
+db.getSiblingDB("unifi").createUser({user: "unifi", pwd: "sharingiscaring223", roles: [{role: "readWrite", db: "unifi"}]});
+db.getSiblingDB("unifi_stat").createUser({user: "unifi", pwd: "sharingiscaring223", roles: [{role: "readWrite", db: "unifi_stat"}]});
