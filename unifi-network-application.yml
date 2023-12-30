@@ -32,6 +32,12 @@ services:
       - 6789:6789 #optional
       - 5514:5514/udp #optional
     restart: unless-stopped
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=unifi-network-application_default"
+      - "traefik.http.routers.router-unifi-network-application.entrypoints=unifi-network-application_default"
+      - "traefik.http.routers.router-unifi-network-application.rule=Host(`una.matthewford.dev`)"
+      - "traefik.http.services.unifi-network-application.loadbalancer.server.port=8443"
 
   mongodb:
     image: mongo:4.4
