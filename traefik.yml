@@ -21,7 +21,7 @@ services:
       - "--certificatesresolvers.cloudflareresolver.acme.email=$CF_API_EMAIL"
       - "--certificatesresolvers.cloudflareresolver.acme.storage=/letsencrypt/acme.json"
     extra_hosts:
-      - host.docker.internal: 172.28.0.2 # Needed to avoid Bad Gateway.
+      - host.docker.internal:172.28.0.2 # Needed to avoid Bad Gateway.
     environment:
       - "CF_API_EMAIL=$CF_API_EMAIL"
       - "CF_API_KEY=$CF_API_KEY"
