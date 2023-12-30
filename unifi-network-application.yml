@@ -1,0 +1,71 @@
+---
+version: "2.1"
+services:
+  unifi-network-application:
+    image: lscr.io/linuxserver/unifi-network-application:7.5.174
+    container_name: unifi-network-application
+      #profiles:
+      #- donotstart
+    depends_on:
+      - mongodb
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Etc/Vienna
+      - MONGO_USER=unifi
+      - MONGO_PASS=sharingiscaring223
+      - MONGO_HOST=mongodb
+      - MONGO_PORT=27017
+      - MONGO_DBNAME=unifi
+      - MEM_LIMIT=1024 #optional
+      - MEM_STARTUP=1024 #optional
+    volumes:
+      - ./config:/config
+    ports:
+      - 8443:8443
+      - 3478:3478/udp
+      - 10001:10001/udp
+      - 8080:8080
+      - 1900:1900/udp #optional
+      - 8843:8843 #optional
+      - 8880:8880 #optional
+      - 6789:6789 #optional
+      - 5514:5514/udp #optional
+    restart: unless-stopped
+      
+  mongodb:
+    image: mongo:4.4
+    restart: always
+    ports:
+      - 27017:27017
+    environment:
+      PUID: 1000
+      PGID: 1000
+    volumes:
+      - ./init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js:ro
+      - unifi-mongo-db:/data
+
+  mongo-express:
+    image: mongo-express
+    restart: always
+      #profiles:
+      #- donotstart
+    depends_on:
+      - mongodb
+    ports:
+      - 8081:8081
+    environment:
+      ME_CONFIG_MONGODB_URL: mongodb://unifi:sharingiscaring223@mongodb
+      ME_CONFIG_MONGODB_SERVER: mongodb
+      ME_CONFIG_BASICAUTH_USERNAME: unifi
+      ME_CONFIG_BASICAUTH_PASSWORD: sharingiscaring223
+    volumes:
+      - unifi-mongo-web:/data/db
+
+volumes:
+  unifi-mongo-db:
+  unifi-mongo-web:
+
+# cat init-mongo.js 
+db.getSiblingDB("unifi").createUser({user: "unifi", pwd: "sharingiscaring223", roles: [{role: "readWrite", db: "unifi"}]});
+db.getSiblingDB("unifi_stat").createUser({user: "unifi", pwd: "sharingiscaring223", roles: [{role: "readWrite", db: "unifi_stat"}]});
