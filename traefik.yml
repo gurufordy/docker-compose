@@ -5,8 +5,8 @@ services:
     container_name: "traefik"
     image: "traefik:latest"
     networks:
-      - web:
-        ipv4_address: 172.28.0.2
+      web:
+        - ipv4_address: 172.28.0.2
     ports:
       # The Web UI (enabled by --api.insecure=true)
       - "8080:8080"
