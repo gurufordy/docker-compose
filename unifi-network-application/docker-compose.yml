@@ -39,7 +39,6 @@ services:
       - "traefik.http.routers.router-unifi.rule=Host(`una.matthewford.dev`)"
       - "traefik.http.services.unifi.loadbalancer.server.port=8443"
       - "traefik.http.services.unifi.loadbalancer.server.scheme=https"
-      # - "traefik.http.services.unifi.loadbalancer.server.protocol=https"
 
   mongodb:
     container_name: mongodb

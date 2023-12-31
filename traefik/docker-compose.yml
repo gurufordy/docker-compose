@@ -41,8 +41,8 @@ services:
       - --providers.docker
       - --providers.docker.exposedbydefault=false
       - --providers.docker.network=web
-    # extra_hosts:
-    #   - host.docker.internal:172.28.0.2 # Needed to avoid Bad Gateway.
+
+      - --serversTransport.insecureSkipVerify=true
 
 networks:
   web:
