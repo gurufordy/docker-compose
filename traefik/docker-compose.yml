@@ -20,8 +20,8 @@ services:
       - "--log.level=DEBUG"
 
       # Globals
-      - "--checknewversion=true"
-      - "--sendAnonymouseUsage=false"
+      - "--global.checknewversion=true"
+      - "--global.sendAnonymouseUsage=false"
 
       # Dashboard
       - "--api.dashboard=true"
