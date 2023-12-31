@@ -28,8 +28,12 @@ services:
       - "--api.insecure=true"
 
       # Entrypoints
-      - "--entrypoints.web.address=:80"
-      - "--entrypoints.websecure.address=:443"
+      - --entrypoints.web.address=:80
+      - --entrypoints.web.http.redirections.entrypoint.to=websecure
+      - --entrypoints.web.http.redirections.entrypoint.scheme=https
+      - --entryPoints.websecure.address=:443
+      - --entrypoints.websecure.http.tls=true
+      - --entrypoints.websecure.http.tls.certResolver=leresolver
 
       # ACME configuration
       - "--certificatesresolvers.cloudflareresolver.acme.dnschallenge=true"
