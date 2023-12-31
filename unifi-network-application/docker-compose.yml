@@ -35,11 +35,11 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.docker.network=web"
-      - "traefik.http.routers.router-unifi-network-application.entrypoints=web"
-      - "traefik.http.routers.router-unifi-network-application.rule=Host(`una.matthewford.dev`)"
-      - "traefik.http.services.unifi-network-application.loadbalancer.server.port=8443"
+      - "traefik.http.routers.router-unifi.entrypoints=web"
+      - "traefik.http.routers.router-unifi.rule=Host(`una.matthewford.dev`)"
+      - "traefik.http.services.unifi.loadbalancer.server.port=8443"
       - "traefik.http.services.unifi.loadbalancer.server.scheme=https"
-      # - "traefik.http.services.unifi-network-application.loadbalancer.server.protocol=https"
+      # - "traefik.http.services.unifi.loadbalancer.server.protocol=https"
 
   mongodb:
     container_name: mongodb
