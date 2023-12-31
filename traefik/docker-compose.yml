@@ -21,7 +21,7 @@ services:
 
       # Globals
       - "--global.checknewversion=true"
-      - "--global.sendAnonymouseUsage=false"
+      - "--global.sendanonymoususage=false"
 
       # Dashboard
       - "--api.dashboard=true"
