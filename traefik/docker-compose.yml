@@ -17,34 +17,30 @@ services:
       - "/etc/traefik/cloudflare-acme:/letsencrypt"
     command:
       # Logging
-      - "--log.level=DEBUG"
+      - --log.level=DEBUG
 
       # Globals
-      - "--global.checknewversion=true"
-      - "--global.sendanonymoususage=false"
+      - --global.checknewversion=true
+      - --global.sendanonymoususage=false
 
       # Dashboard
-      - "--api.dashboard=true"
-      - "--api.insecure=true"
+      - --api.dashboard=true
+      - --api.insecure=true
 
       # Entrypoints
       - --entrypoints.web.address=:80
-      - --entrypoints.web.http.redirections.entrypoint.to=websecure
-      - --entrypoints.web.http.redirections.entrypoint.scheme=https
-      - --entryPoints.websecure.address=:443
-      - --entrypoints.websecure.http.tls=true
-      - --entrypoints.websecure.http.tls.certResolver=leresolver
+      - --entrypoints.websecure.address=:443
 
       # ACME configuration
-      - "--certificatesresolvers.cloudflareresolver.acme.dnschallenge=true"
-      - "--certificatesresolvers.cloudflareresolver.acme.dnschallenge.provider=cloudflare"
-      - "--certificatesresolvers.cloudflareresolver.acme.email=$CF_API_EMAIL"
-      - "--certificatesresolvers.cloudflareresolver.acme.storage=/letsencrypt/acme.json"
+      - --certificatesresolvers.cloudflareresolver.acme.dnschallenge=true
+      - --certificatesresolvers.cloudflareresolver.acme.dnschallenge.provider=cloudflare
+      - --certificatesresolvers.cloudflareresolver.acme.email=$CF_API_EMAIL
+      - --certificatesresolvers.cloudflareresolver.acme.storage=/letsencrypt/acme.json
 
       # Providers
-      - "--providers.docker"
-      - "--providers.docker.exposedbydefault=false"
-      - "--providers.docker.network=web"
+      - --providers.docker
+      - --providers.docker.exposedbydefault=false
+      - --providers.docker.network=web
     # extra_hosts:
     #   - host.docker.internal:172.28.0.2 # Needed to avoid Bad Gateway.
 
