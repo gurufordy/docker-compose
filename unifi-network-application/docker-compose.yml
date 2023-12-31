@@ -2,10 +2,7 @@ version: "2.1"
 services:
   unifi-network-application:
     image: lscr.io/linuxserver/unifi-network-application:latest
-    container_name:
-      unifi-network-application
-      #profiles:
-      #- donotstart
+    container_name: unifi-network-application
     networks:
       - web
     depends_on:
@@ -42,6 +39,7 @@ services:
       - "traefik.http.services.unifi-network-application.loadbalancer.server.port=8443"
 
   mongodb:
+    container_name: mongodb
     image: mongo:4.4
     restart: always
     ports:
@@ -54,11 +52,9 @@ services:
       - unifi-mongo-db:/data
 
   mongo-express:
+    container_name: mongo-express
     image: mongo-express
-    restart:
-      always
-      #profiles:
-      #- donotstart
+    restart: always
     depends_on:
       - mongodb
     ports:
