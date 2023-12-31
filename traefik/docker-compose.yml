@@ -6,32 +6,43 @@ services:
     image: "traefik:latest"
     networks: [web]
     ports:
-      # The Web UI (enabled by --api.insecure=true)
-      - "8080:8080"
+      - "8080:8080" # The Web UI (enabled by --api.insecure=true)
       - "80:80"
       - "443:443"
-    command:
-      - "--log.level=DEBUG"
-      #- "--api.insecure=true"
-      #- "--entrypoints.web.address=:80"
-      #- "--entrypoints.websecure.address=:443"
-      #- "--providers.docker"
-      #- "--providers.docker.exposedbydefault=false"
-      # - "--providers.docker.network=web"
-      # - "--certificatesresolvers.cloudflareresolver.acme.dnschallenge=true"
-      # - "--certificatesresolvers.cloudflareresolver.acme.dnschallenge.provider=cloudflare"
-      # - "--certificatesresolvers.cloudflareresolver.acme.email=$CF_API_EMAIL"
-      # - "--certificatesresolvers.cloudflareresolver.acme.storage=/letsencrypt/acme.json"
-    extra_hosts:
-      - host.docker.internal:172.28.0.2 # Needed to avoid Bad Gateway.
     environment:
       - "CF_API_EMAIL=$CF_API_EMAIL"
       - "CF_API_KEY=$CF_API_KEY"
-
     volumes:
-      - ./config.yml:/etc/traefik/traefik.yml
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
       - "/etc/traefik/cloudflare-acme:/letsencrypt"
+    command:
+      # Logging
+      - "--log.level=DEBUG"
+
+      # Globals
+      - "--checknewversion=true"
+      - "--sendAnonymouseUsage=false"
+
+      # Dashboard
+      - "--api.dashboard=true"
+      - "--api.insecure=true"
+
+      # Entrypoints
+      - "--entrypoints.web.address=:80"
+      - "--entrypoints.websecure.address=:443"
+
+      # ACME configuration
+      - "--certificatesresolvers.cloudflareresolver.acme.dnschallenge=true"
+      - "--certificatesresolvers.cloudflareresolver.acme.dnschallenge.provider=cloudflare"
+      - "--certificatesresolvers.cloudflareresolver.acme.email=$CF_API_EMAIL"
+      - "--certificatesresolvers.cloudflareresolver.acme.storage=/letsencrypt/acme.json"
+
+      # Providers
+      - "--providers.docker"
+      - "--providers.docker.exposedbydefault=false"
+      - "--providers.docker.network=web"
+    # extra_hosts:
+    #   - host.docker.internal:172.28.0.2 # Needed to avoid Bad Gateway.
 
 networks:
   web:
