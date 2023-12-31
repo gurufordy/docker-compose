@@ -42,7 +42,7 @@ services:
 
   mongodb:
     container_name: unifi-mongodb
-    image: mongo:4.4
+    image: mongodb:4.4
     restart: always
     networks:
       - unifinet
