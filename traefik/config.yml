@@ -1,0 +1,26 @@
+global:
+  checkNewVersion: true
+  sendAnonymousUsage: false
+
+api:
+  dashboard: true
+  insecure: true
+
+entryPoints:
+  web:
+    address: :80
+
+  websecure:
+    address: :443
+
+providers:
+  docker:
+    exposedByDefault: false
+    network: web
+    
+certificatesResolvers:
+  acme:
+    dnschallenge: true
+      provider: cloudflare
+    email: $CF_API_EMAIL
+    storage: "/letsencrypt/acme.json"

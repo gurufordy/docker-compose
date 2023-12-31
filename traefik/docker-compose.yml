@@ -8,18 +8,20 @@ services:
     ports:
       # The Web UI (enabled by --api.insecure=true)
       - "8080:8080"
+      - "80:80"
+      - "443:443"
     command:
       - "--log.level=DEBUG"
-      - "--api.insecure=true"
-      - "--entrypoints.web.address=:80"
-      - "--entrypoints.websecure.address=:443"
-      - "--providers.docker"
-      - "--providers.docker.exposedbydefault=false"
-      - "--providers.docker.network=web"
-      - "--certificatesresolvers.cloudflareresolver.acme.dnschallenge=true"
-      - "--certificatesresolvers.cloudflareresolver.acme.dnschallenge.provider=cloudflare"
-      - "--certificatesresolvers.cloudflareresolver.acme.email=$CF_API_EMAIL"
-      - "--certificatesresolvers.cloudflareresolver.acme.storage=/letsencrypt/acme.json"
+      #- "--api.insecure=true"
+      #- "--entrypoints.web.address=:80"
+      #- "--entrypoints.websecure.address=:443"
+      #- "--providers.docker"
+      #- "--providers.docker.exposedbydefault=false"
+      # - "--providers.docker.network=web"
+      # - "--certificatesresolvers.cloudflareresolver.acme.dnschallenge=true"
+      # - "--certificatesresolvers.cloudflareresolver.acme.dnschallenge.provider=cloudflare"
+      # - "--certificatesresolvers.cloudflareresolver.acme.email=$CF_API_EMAIL"
+      # - "--certificatesresolvers.cloudflareresolver.acme.storage=/letsencrypt/acme.json"
     extra_hosts:
       - host.docker.internal:172.28.0.2 # Needed to avoid Bad Gateway.
     environment:
@@ -27,6 +29,7 @@ services:
       - "CF_API_KEY=$CF_API_KEY"
 
     volumes:
+      - ./config.yml:/etc/traefik/traefik.yml
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
       - "/etc/traefik/cloudflare-acme:/letsencrypt"
 
