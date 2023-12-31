@@ -37,7 +37,8 @@ services:
       - "traefik.http.routers.router-unifi-network-application.entrypoints=web"
       - "traefik.http.routers.router-unifi-network-application.rule=Host(`una.matthewford.dev`)"
       - "traefik.http.services.unifi-network-application.loadbalancer.server.port=8443"
-      - "traefik.http.services.unifi-network-application.loadbalancer.server.protocol=https"
+      - "traefik.http.services.unifi.loadbalancer.server.scheme=https"
+      # - "traefik.http.services.unifi-network-application.loadbalancer.server.protocol=https"
 
   mongodb:
     container_name: mongodb
@@ -75,3 +76,5 @@ volumes:
 networks:
   web:
     external: true
+  default:
+    driver: bridge
