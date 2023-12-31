@@ -41,7 +41,7 @@ services:
       - "traefik.http.services.unifi.loadbalancer.server.scheme=https"
 
   mongodb:
-    container_name: mongodb
+    container_name: unifi-mongodb
     image: mongo:4.4
     restart: always
     networks:
@@ -56,7 +56,7 @@ services:
       - unifi-mongo-db:/data
 
   mongo-express:
-    container_name: mongo-express
+    container_name: unifi-mongo-express
     image: mongo-express
     restart: always
     networks:
