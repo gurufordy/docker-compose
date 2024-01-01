@@ -17,16 +17,16 @@ services:
     image: mariadb:latest
     networks:
       - hanet
+    ports:
+      - "3306:3306"
     environment:
       MYSQL_ROOT_PASSWORD: password
       MYSQL_DATABASE: mydatabase
       MYSQL_USER: user
       MYSQL_PASSWORD: password
-    volumes:
-      - ha-maria-data:/var/lib/mysql
-      #- ./dev/mariadb:/docker-entrypoint-initdb.d
-    ports:
-      - "3306:3306"
+    # volumes:
+    #   - ha-maria-data:/var/lib/mysql
+    #- ./dev/mariadb:/docker-entrypoint-initdb.d
 
 networks:
   web:
