@@ -52,7 +52,7 @@ services:
       PUID: 1000
       PGID: 1000
     volumes:
-      - ./init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js
+      - ./init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js/:ro
       - unifi-mongo-db:/data
 
   mongo-express:
