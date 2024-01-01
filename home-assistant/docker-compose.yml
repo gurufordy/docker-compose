@@ -2,11 +2,35 @@ version: "3"
 services:
   homeassistant:
     container_name: home-assistant
+    networks:
+      - web
+      - hanet
     image: "ghcr.io/home-assistant/home-assistant:stable"
     volumes:
-      - ./config.yml:/config
+      #- ./config.yml:/config
       - /etc/localtime:/etc/localtime:ro
       - /run/dbus:/run/dbus:ro
     restart: unless-stopped
     privileged: true
     network_mode: host
+
+  db:
+    image: mariadb:latest
+    networks:
+      - hanet
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: mydatabase
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+    volumes:
+      - data:/var/lib/mysql
+      - ./dev/mariadb:/docker-entrypoint-initdb.d
+    ports:
+      - "3306:3306"
+
+networks:
+  web:
+    external: true
+  hanet:
+    driver: bridge
