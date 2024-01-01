@@ -42,7 +42,7 @@ services:
 
   mongodb:
     container_name: unifi-mongodb
-    image: mongo:4.4.26
+    image: mongo:latest
     restart: always
     networks:
       - unifinet
@@ -57,7 +57,7 @@ services:
 
   mongo-express:
     container_name: unifi-mongo-express
-    image: mongo-express
+    image: mongo-express:latest
     restart: always
     networks:
       - unifinet
