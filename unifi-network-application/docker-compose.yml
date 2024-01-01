@@ -51,6 +51,12 @@ services:
     environment:
       PUID: 1000
       PGID: 1000
+    command:
+      [
+        "bash",
+        "-c",
+        "chmod +x /docker-entrypoint-initdb.d/init-mongo.js && /docker-entrypoint.sh mongod",
+      ]
     volumes:
       - ./init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js:ro
       - unifi-mongo-db:/data
