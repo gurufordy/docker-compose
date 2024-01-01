@@ -24,7 +24,7 @@ services:
       MYSQL_PASSWORD: password
     volumes:
       - data:/var/lib/mysql
-      - ./dev/mariadb:/docker-entrypoint-initdb.d
+      #- ./dev/mariadb:/docker-entrypoint-initdb.d
     ports:
       - "3306:3306"
 
