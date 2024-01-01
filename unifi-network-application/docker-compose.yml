@@ -58,7 +58,7 @@ services:
         "chmod +x /docker-entrypoint-initdb.d/init-mongo.js && /docker-entrypoint.sh mongod",
       ]
     volumes:
-      - ./init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js:ro
+      - ./init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js
       - unifi-mongo-db:/data
 
   mongo-express:
