@@ -23,9 +23,8 @@ services:
       MYSQL_USER: user
       MYSQL_PASSWORD: password
     volumes:
-      #- data:/var/lib/mysql
+      - ha-maria-data:/var/lib/mysql
       #- ./dev/mariadb:/docker-entrypoint-initdb.d
-      - ha-maria-db:/data/db
     ports:
       - "3306:3306"
 
