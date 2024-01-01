@@ -12,7 +12,6 @@ services:
       - /run/dbus:/run/dbus:ro
     restart: unless-stopped
     privileged: true
-    network_mode: host
 
   db:
     image: mariadb:latest
